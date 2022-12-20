@@ -1,6 +1,7 @@
 package com.adam.wod.cinemaverse.util
 
 import com.adam.wod.cinemaverse.domain.TvShowUseCase
+import com.adam.wod.cinemaverse.repository.Interceptor
 import com.adam.wod.cinemaverse.repository.tv_show.TvShowRepository
 import com.adam.wod.cinemaverse.repository.tv_show.TvShowsContract
 import com.adam.wod.cinemaverse.service.TvShowService
@@ -22,7 +23,7 @@ object Provider {
     fun provideTvShowAuthOkHttpClient(): OkHttpClient {
         return OkHttpClient
             .Builder()
-//            .addInterceptor(Class())
+            .addInterceptor(Interceptor())
             .build()
     }
 

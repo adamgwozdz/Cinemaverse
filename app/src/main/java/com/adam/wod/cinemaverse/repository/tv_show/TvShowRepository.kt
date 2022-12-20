@@ -1,6 +1,5 @@
 package com.adam.wod.cinemaverse.repository.tv_show
 
-import com.adam.wod.cinemaverse.util.Keys
 import com.adam.wod.cinemaverse.repository.tv_show.model.TvShowDataContract
 import com.adam.wod.cinemaverse.repository.tv_show.model.realm.PopularTvShow
 import com.adam.wod.cinemaverse.service.TvShowService
@@ -9,7 +8,7 @@ import javax.inject.Inject
 class TvShowRepository @Inject constructor(private val tvShowsService: TvShowService) : TvShowsContract.TvShowRepository {
 
     override suspend fun fetchPopularTvShows(): List<TvShowDataContract.PopularTvShow> {
-        val response = tvShowsService.getPopularTvShows("Bearer " + Keys.apiKey())
+        val response = tvShowsService.getPopularTvShows()
         val tvShows: MutableList<TvShowDataContract.PopularTvShow> = mutableListOf()
         response.results.forEach { tvShows.add(mapFetchedPopularTvShows(it, response.page)) }
         return tvShows
