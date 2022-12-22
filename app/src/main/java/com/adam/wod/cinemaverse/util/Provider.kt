@@ -1,17 +1,12 @@
 package com.adam.wod.cinemaverse.util
 
-import android.content.Context
-import androidx.room.Room
 import com.adam.wod.cinemaverse.domain.tv_show.TvShowUseCase
 import com.adam.wod.cinemaverse.data.TvShowContract
-import com.adam.wod.cinemaverse.data.tv_show.AppDatabase
-import com.adam.wod.cinemaverse.data.tv_show.PopularTvShowLocalRepository
 import com.adam.wod.cinemaverse.data.TvShowRepository
 import com.adam.wod.cinemaverse.data.TvShowService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -54,16 +49,8 @@ object Provider {
     @Singleton
     fun provideTvShowsRepository(
         tvShowService: TvShowService,
-        tvShowDatabase: PopularTvShowLocalRepository
     ): TvShowContract.TvShowRestRepository {
-        return TvShowRepository(tvShowService, tvShowDatabase)
-    }
-
-    @Provides
-    @Singleton()
-    fun provideLocalTvShowsRepository(@ApplicationContext context: Context): TvShowContract.TvShowLocalRepository {
-        val dataBase = Room.databaseBuilder(context, AppDatabase::class.java, "CinemaverseDB").build()
-        return PopularTvShowLocalRepository(dataBase)
+        return TvShowRepository(tvShowService)
     }
 
     @Provides

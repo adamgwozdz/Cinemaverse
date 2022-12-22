@@ -1,6 +1,7 @@
 package com.adam.wod.cinemaverse.data
 
 import com.adam.wod.cinemaverse.data.tv_show.model.room.PopularTvShowEntity
+import com.adam.wod.cinemaverse.data.tv_show.model.room.TvShowDetailsEntity
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -11,7 +12,7 @@ interface TvShowService {
     @GET("tv/{tv_id}")
     suspend fun getDetails(
         @Path("tv_id") id: Int
-    )
+    ): TvShowDetailsEntity
 
     /** Get the aggregate credits (cast and crew) that have been added to a TV show
      * It differs from credit call in that it does not return the newest season but rather,
