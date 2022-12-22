@@ -1,13 +1,17 @@
 package com.adam.wod.cinemaverse.util
 
-import com.adam.wod.cinemaverse.domain.TvShowUseCase
-import com.adam.wod.cinemaverse.repository.Interceptor
-import com.adam.wod.cinemaverse.repository.tv_show.TvShowRepository
-import com.adam.wod.cinemaverse.repository.tv_show.TvShowsContract
-import com.adam.wod.cinemaverse.service.TvShowService
+import android.content.Context
+import androidx.room.Room
+import com.adam.wod.cinemaverse.domain.tv_show.TvShowUseCase
+import com.adam.wod.cinemaverse.data.TvShowContract
+import com.adam.wod.cinemaverse.data.tv_show.AppDatabase
+import com.adam.wod.cinemaverse.data.tv_show.PopularTvShowLocalRepository
+import com.adam.wod.cinemaverse.data.TvShowRepository
+import com.adam.wod.cinemaverse.data.TvShowService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -36,7 +40,7 @@ object Provider {
             .Builder()
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://api.themoviedb.org/")
+            .baseUrl("https://api.themoviedb.org/3/")
             .build()
     }
 
@@ -48,13 +52,23 @@ object Provider {
 
     @Provides
     @Singleton
-    fun provideTvShowsRepository(tvShowService: TvShowService): TvShowsContract.TvShowRepository {
-        return TvShowRepository(tvShowService)
+    fun provideTvShowsRepository(
+        tvShowService: TvShowService,
+        tvShowDatabase: PopularTvShowLocalRepository
+    ): TvShowContract.TvShowRestRepository {
+        return TvShowRepository(tvShowService, tvShowDatabase)
+    }
+
+    @Provides
+    @Singleton()
+    fun provideLocalTvShowsRepository(@ApplicationContext context: Context): TvShowContract.TvShowLocalRepository {
+        val dataBase = Room.databaseBuilder(context, AppDatabase::class.java, "CinemaverseDB").build()
+        return PopularTvShowLocalRepository(dataBase)
     }
 
     @Provides
     @Singleton
-    fun provideTvShowsUseCase(tvShowRepository: TvShowRepository): TvShowsContract.TvShowUseCase {
+    fun provideTvShowsUseCase(tvShowRepository: TvShowRepository): TvShowContract.TvShowUseCase {
         return TvShowUseCase(tvShowRepository)
     }
 }

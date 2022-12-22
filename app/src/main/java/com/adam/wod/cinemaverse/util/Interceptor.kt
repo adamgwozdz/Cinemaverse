@@ -1,6 +1,5 @@
-package com.adam.wod.cinemaverse.repository
+package com.adam.wod.cinemaverse.util
 
-import com.adam.wod.cinemaverse.util.Keys
 import okhttp3.Interceptor
 import okhttp3.Response
 
