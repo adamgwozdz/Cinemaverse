@@ -1,4 +1,4 @@
-package com.adam.wod.cinemaverse.ui
+package com.adam.wod.cinemaverse.ui.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn

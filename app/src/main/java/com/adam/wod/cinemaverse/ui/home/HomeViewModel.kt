@@ -1,4 +1,4 @@
-package com.adam.wod.cinemaverse.ui
+package com.adam.wod.cinemaverse.ui.home
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
