@@ -23,7 +23,7 @@ class PopularTvShowLocalRepository @Inject constructor(private val database: App
 @Dao
 abstract class TvShowPopularDao {
     @Transaction
-    @Query("select * from tv_shows")
+    @Query("select * from popular_tv_shows")
     abstract suspend fun getAll(): PopularTvShowEntity
 
     @Transaction

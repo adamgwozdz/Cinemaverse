@@ -3,7 +3,7 @@ package com.adam.wod.cinemaverse.data.tv_show.model.room
 import androidx.room.*
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "tv_shows")
+@Entity(tableName = "popular_tv_shows")
 data class PopularTvShowEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "page") @SerializedName("page") val page: Int? = 0,
